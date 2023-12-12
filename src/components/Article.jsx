@@ -8,7 +8,7 @@ export const Article = () => {
     const { article_id } = useParams();
     const [article, setArticle] = useState({})
     const [loading, setLoading] = useState(true);
-    const [hasVoted, setHasVoted] = useState(false)
+    // const [hasVoted, setHasVoted] = useState(false)
 
     useEffect(() => {
         getArticleById(article_id)
@@ -25,17 +25,17 @@ export const Article = () => {
         return <div>Loading!</div>;
     }
 
-    const handleVote = () => {
-      if (!hasVoted) {
-        article.votes = article.votes + 1
-        setHasVoted(true)
-      }
-      if (hasVoted) {
-        article.votes = article.votes - 1
-        setHasVoted(false)
-      }
+    // const handleVote = () => {
+    //   if (!hasVoted) {
+    //     article.votes = article.votes + 1
+    //     setHasVoted(true)
+    //   }
+    //   if (hasVoted) {
+    //     article.votes = article.votes - 1
+    //     setHasVoted(false)
+    //   }
       
-    }
+    // }
  
 
     return <div>
@@ -43,8 +43,8 @@ export const Article = () => {
         <div className="article-info">
             <Link to={`/articles/authors/${article.author}`}>Author: {article.author}</Link>
             <Link to={`/articles/topics/${article.topic}`}>Topic: {article.topic}</Link>
-            <p>Votes: {article.votes}</p>
-            <button onClick={handleVote}>Up Vote</button>
+            {/* <p>Votes: {article.votes}</p>
+            <button onClick={handleVote}>Up Vote</button> */}
         </div>
         
         <img className="article-img" src={article.article_img_url}></img>
