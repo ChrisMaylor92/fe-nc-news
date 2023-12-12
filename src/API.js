@@ -1,11 +1,15 @@
 import axios from "axios";
 
 
-
-export const api = axios.create({
+const api = axios.create({
     baseURL: "https://chriss-new-app.onrender.com",
   });
 
+export const getArticleById = (article_id) => {
+    return api.get(`/api/articles/${article_id}`).then((response) => {
+        return response.data.article
+      });
+}
 export const getAllArticles = () => {
     return api.get(`/api/articles`)
         .then((response) => {
