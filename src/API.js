@@ -19,3 +19,16 @@ export const getAllArticlesPagnated = (pageNumber) => {
         return response.data.articles
     })
 }
+
+export const postCommentAPI = (newCommentText) => {
+    console.log(typeof newCommentText, ',,,')
+    const newComment = {username:'butter_bridge', body: newCommentText}
+    return api.post(`/api/articles/12/comments`, newComment)
+    .then((result) => {
+        console.log(result, 'dataaaaaaaaa')
+        return data
+    })
+    .catch((err) => {
+        console.log(err, 'err')
+    })
+}
