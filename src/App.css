@@ -5,6 +5,10 @@
   text-align: center;
 }
 
+
+.article-img{
+  max-width:60%;
+}
 .header{
   border: yellow solid;
   padding: 20px;

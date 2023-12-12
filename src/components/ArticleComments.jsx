@@ -1,7 +1,6 @@
 import { useEffect,useState } from "react"
 import { getArticleById, getCommentsByArticleId } from "../API"
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { CommentCard } from "./CommentCard";
 
 export const ArticleComments = () => {
@@ -9,7 +8,7 @@ export const ArticleComments = () => {
     const [comments, setComments] = useState([])
     const [article, setArticle] = useState({})
     const [loading, setLoading] = useState(true);
-    const [hasVoted, setHasVoted] = useState(false)
+    
     const { article_id } = useParams();
 
     useEffect(() => {
@@ -38,11 +37,12 @@ export const ArticleComments = () => {
     return <div>
         <h2>{article.title}</h2>
         <h2>Comments</h2>
+        <Link  to={`/articles/${article.article_id}/comments/post`}>Post a Comment</Link>
         {comments.map((comment) => {
             return <div key={comment.comment_id}>
-                <CommentCard comment={comment}/>
+                <CommentCard comment={comment} setComments={setComments}/>
             </div>
         })}
-        <Link  to={`/articles/${article.article_id}/comments/post`}>Post a Comment</Link>
+        
     </div>
 }
