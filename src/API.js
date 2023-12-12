@@ -6,7 +6,7 @@ const api = axios.create({
   });
 
 export const getArticleById = (article_id) => {
-    api.get(`/api/articles/${article_id}`).then((response) => {
+    return api.get(`/api/articles/${article_id}`).then((response) => {
         return response.data.article
       });
 }

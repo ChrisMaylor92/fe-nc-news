@@ -2,63 +2,55 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { getArticleById } from "../API";
-// const { article_id } = useParams();
-
+import { Link } from "react-router-dom";
 
 export const Article = () => {
+    const { article_id } = useParams();
     const [article, setArticle] = useState({})
     const [loading, setLoading] = useState(true);
-    const [hasVotedUp, setHasVotedUp] = (false)
-    const [hasVotedDown, setHasVotedDown] = (false)
+    const [hasVoted, setHasVoted] = useState(false)
 
     useEffect(() => {
-        getArticleById(2)
+        getArticleById(article_id)
         .then((response) => {
           setArticle(response)
           setLoading(false)
-        });
+        })
+        .catch((err)=> {
+            console.log(err, '<<<<')
+        })
       }, []);
 
     if (loading) {
         return <div>Loading!</div>;
     }
 
-    const handleUpVote = () => {
-      if (!hasVotedUp) {
+    const handleVote = () => {
+      if (!hasVoted) {
         article.votes = article.votes + 1
-        setHasVotedUp(true)
+        setHasVoted(true)
       }
-      if (hasVotedUp) {
+      if (hasVoted) {
         article.votes = article.votes - 1
-        setHasVotedUp(false)
+        setHasVoted(false)
       }
       
     }
-    const handleDownVote = () => {
-      if (!hasVotedDown) {
-        article.votes = article.votes - 1
-        setHasVotedDown(true)
-      }
-      if (hasVotedDown) {
-        article.votes = article.votes + 1
-        setHasVotedDown(false)
-      }
-    }
+ 
 
     return <div>
         <h2>{article.title}</h2>
         <div className="article-info">
-            <button>Author: {article.author}</button>
-            <button>Topic: {article.topic}</button>
+            <Link to={`/articles/authors/${article.author}`}>Author: {article.author}</Link>
+            <Link to={`/articles/topics/${article.topic}`}>Topic: {article.topic}</Link>
             <p>Votes: {article.votes}</p>
+            <button onClick={handleVote}>Up Vote</button>
         </div>
-        <button onClick={handleUpVote}>Up Vote</button>
-        <button onClick={handleDownVote}>Down Vote</button>
+        
         <img className="article-img" src={article.article_img_url}></img>
         <p>{article.body}</p>
         <div>
-            <button>Comments {article.comment_count}</button>
+            <Link to={`/articles/${article.article_id}/comments`}>Comments {article.comment_count}</Link>
         </div>
-        
     </div>
 }
