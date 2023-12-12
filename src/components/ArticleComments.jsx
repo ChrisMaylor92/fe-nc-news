@@ -2,6 +2,7 @@ import { useEffect,useState } from "react"
 import { getArticleById, getCommentsByArticleId } from "../API"
 import { useParams, Link } from "react-router-dom";
 import { CommentCard } from "./CommentCard";
+import { PostComment } from "./PostComment";
 
 export const ArticleComments = () => {
 
@@ -37,7 +38,7 @@ export const ArticleComments = () => {
     return <div>
         <h2>{article.title}</h2>
         <h2>Comments</h2>
-        <Link  to={`/articles/${article.article_id}/comments/post`}>Post a Comment</Link>
+        <PostComment setComments={setComments} article_id={article_id}/>
         {comments.map((comment) => {
             return <div key={comment.comment_id}>
                 <CommentCard comment={comment} setComments={setComments}/>
