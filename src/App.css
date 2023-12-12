@@ -6,11 +6,12 @@
 }
 
 .header{
-  border: yellow solid 
+  border: yellow solid;
+  padding: 20px;
 }
 .home{
   border: red solid;
-  height: 500px;
+  height: 100%;
   
 }
 .article-list-img{
@@ -36,4 +37,14 @@ li{
 ul{
   margin: 0px 0px;
   padding: 20px
+}
+h3 {
+  margin: 0px;
+  display: block;
+  font-size: 1.17em;
+  font-weight: bold;
+}
+.bottom {
+  position: absolute;
+  bottom: 0;
 }
