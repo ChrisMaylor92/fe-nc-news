@@ -43,6 +43,6 @@ export const ArticleComments = () => {
                 <CommentCard comment={comment}/>
             </div>
         })}
-        <button>Post a Comment</button>
+        <Link  to={`/articles/${article.article_id}/comments/post`}>Post a Comment</Link>
     </div>
 }
