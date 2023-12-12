@@ -1,14 +1,14 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
-import { getArticleById } from "../API";
+import { getArticleById, patchArticle } from "../API";
 import { Link } from "react-router-dom";
 
 export const Article = () => {
     const { article_id } = useParams();
     const [article, setArticle] = useState({})
     const [loading, setLoading] = useState(true);
-    // const [hasVoted, setHasVoted] = useState(false)
+    const [hasVoted, setHasVoted] = useState(false)
 
     useEffect(() => {
         getArticleById(article_id)
@@ -25,17 +25,23 @@ export const Article = () => {
         return <div>Loading!</div>;
     }
 
-    // const handleVote = () => {
-    //   if (!hasVoted) {
-    //     article.votes = article.votes + 1
-    //     setHasVoted(true)
-    //   }
-    //   if (hasVoted) {
-    //     article.votes = article.votes - 1
-    //     setHasVoted(false)
-    //   }
+    const handleVote = (article_id) => {
+      if (!hasVoted) {
+        patchArticle(article_id, true)
+        setArticle((currArticle) => {
+          return {...currArticle, votes: article.votes + 1}
+        })
+        setHasVoted(true)
+      }
+      if (hasVoted) {
+        patchArticle(article_id, false)
+        setArticle((currArticle) => {
+          return {...currArticle, votes: article.votes - 1}
+        })
+        setHasVoted(false)
+      }
       
-    // }
+    }
  
 
     return <div>
@@ -43,8 +49,8 @@ export const Article = () => {
         <div className="article-info">
             <Link to={`/articles/authors/${article.author}`}>Author: {article.author}</Link>
             <Link to={`/articles/topics/${article.topic}`}>Topic: {article.topic}</Link>
-            {/* <p>Votes: {article.votes}</p>
-            <button onClick={handleVote}>Up Vote</button> */}
+            <p>Votes: {article.votes}</p>
+            <button onClick={()=> handleVote(article.article_id)}>Up Vote</button>
         </div>
         
         <img className="article-img" src={article.article_img_url}></img>
