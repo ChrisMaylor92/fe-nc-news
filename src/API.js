@@ -35,3 +35,19 @@ export const getAllArticlesPagnated = (pageNumber) => {
         return response.data.articles
     })
 }
+
+export const patchComment = (comment_id, up) => {
+    if(up){
+        return api.patch(`/api/comments/${comment_id}`, {inc_votes: 1})
+        .then ((response) => {
+            return response.data.comment
+        })
+    }
+    if(!up){
+        return api.patch(`/api/comments/${comment_id}`, {inc_votes: -1})
+        .then ((response) => {
+            return response.data.comment
+        })
+    }
+    
+}
