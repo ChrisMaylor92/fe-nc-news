@@ -1,6 +1,8 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getArticleById } from "../API";
+import { Collapsible } from "./Collapsible";
+import { ArticleComments } from "./ArticleComments";
 
 export const Article = () => {
     const { article_id } = useParams();
@@ -47,8 +49,6 @@ export const Article = () => {
         
         <img className="article-img" src={article.article_img_url}></img>
         <p>{article.body}</p>
-        <div>
-            <Link to={`/articles/${article.article_id}/comments`}>Comments {article.comment_count}</Link>
-        </div>
+        <ArticleComments article={article}/>
     </div>
 }
