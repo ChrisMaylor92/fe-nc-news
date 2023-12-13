@@ -11,7 +11,7 @@ export const ArticleCard = ({article}) => {
     const handleVote = () => {
         if (!hasVoted) {
           setVoteCount((currCount) => currCount + 1)
-          patchArticle(article.article_id, true)
+          patchArticle(article.article_id, 1)
           .catch((err) => {
             setVoteCount((currCount) => currCount - 1)
             setErr('Something went wrong, please try again.')
@@ -20,7 +20,7 @@ export const ArticleCard = ({article}) => {
         }
         if (hasVoted) {
           setVoteCount((currCount) => currCount - 1)
-          patchArticle(article.article_id, false)
+          patchArticle(article.article_id, -1)
           .catch((err) => {
             setVoteCount((currCount) => currCount + 1)
             setErr('Something went wrong, please try again.')

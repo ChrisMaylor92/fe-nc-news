@@ -26,18 +26,10 @@ export const getAllArticlesPagnated = (pageNumber) => {
 
 
 
-export const patchArticle = (article_id, up) => {
-    if(up) {
-        return api.patch(`/api/articles/${article_id}`, {inc_votes: 1})
+export const patchArticle = (article_id, num) => {
+    return api.patch(`/api/articles/${article_id}`, {inc_votes: num})
     .then((response) => {
         return response.article
     })
-    }
-    if(!up) {
-        return api.patch(`/api/articles/${article_id}`, {inc_votes: -1})
-    .then((response) => {
-        return response.article
-    })
-    }
-    
 }
+    
