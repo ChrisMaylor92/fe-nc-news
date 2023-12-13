@@ -49,6 +49,8 @@ export const patchArticle = (article_id, up) => {
         return response.article
     })
  }
+}
+ 
 export const patchComment = (comment_id, up) => {
     if(up){
         return api.patch(`/api/comments/${comment_id}`, {inc_votes: 1})
