@@ -36,19 +36,26 @@ export const getAllArticlesPagnated = (pageNumber) => {
     })
 }
 
-export const patchArticle = (article_id, up) => {
-    if(up) {
-        return api.patch(`/api/articles/${article_id}`, {inc_votes: 1})
+export const postCommentAPI = (newCommentText, article_id) => {
+    const newComment = {username:'tickle122', body: newCommentText}
+    return api.post(`/api/articles/${article_id}/comments`, newComment)
+    .then(({data}) => {
+        return data
+    })
+    .catch((err) => {
+    })
+}
+
+
+export const patchArticle = (article_id, num) => {
+    return api.patch(`/api/articles/${article_id}`, {inc_votes: num})
     .then((response) => {
         return response.article
     })
-    }
-    if(!up) {
-        return api.patch(`/api/articles/${article_id}`, {inc_votes: -1})
-    .then((response) => {
-        return response.article
-    })
- }
+}
+
+ 
+
 export const patchComment = (comment_id, up) => {
     if(up){
         return api.patch(`/api/comments/${comment_id}`, {inc_votes: 1})

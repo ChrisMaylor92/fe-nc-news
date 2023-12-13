@@ -1,9 +1,10 @@
 import { patchArticle } from "../API"
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { ArticleComments } from "./ArticleComments";
 
 export const ArticleCard = ({article}) => {
-    console.log(article)
+
     const [hasVoted, setHasVoted] = useState(false)
     const [voteCount, setVoteCount] = useState(article.votes)
     const [err, setErr] = useState(null)
@@ -11,7 +12,7 @@ export const ArticleCard = ({article}) => {
     const handleVote = () => {
         if (!hasVoted) {
           setVoteCount((currCount) => currCount + 1)
-          patchArticle(article.article_id, true)
+          patchArticle(article.article_id, 1)
           .catch((err) => {
             setVoteCount((currCount) => currCount - 1)
             setErr('Something went wrong, please try again.')
@@ -20,7 +21,7 @@ export const ArticleCard = ({article}) => {
         }
         if (hasVoted) {
           setVoteCount((currCount) => currCount - 1)
-          patchArticle(article.article_id, false)
+          patchArticle(article.article_id, -1)
           .catch((err) => {
             setVoteCount((currCount) => currCount + 1)
             setErr('Something went wrong, please try again.')
@@ -42,6 +43,7 @@ export const ArticleCard = ({article}) => {
         
         <img className="article-img" src={article.article_img_url}></img>
         <p>{article.body}</p>
+        <ArticleComments article={article}/>
     </div>
     )
 }

@@ -2,6 +2,7 @@ import { useEffect,useState } from "react"
 import { getCommentsByArticleId } from "../API"
 import { CommentCard } from "./CommentCard";
 import { Collapsible } from "./Collapsible";
+import { PostComment } from "./PostComment";
 
 export const ArticleComments = ({article}) => {
 
@@ -25,6 +26,7 @@ export const ArticleComments = ({article}) => {
     return <div>
         <h2>Comments: {comments.length}</h2>
         <Collapsible>
+        <PostComment setComments={setComments} article_id={article.article_id}/>
         {comments.map((comment) => {
             return <div key={comment.comment_id}>
                 <CommentCard comment={comment} setComments={setComments}/>
