@@ -9,6 +9,7 @@ export const Article = () => {
     const [article, setArticle] = useState({})
     const [loading, setLoading] = useState(true);
     const [hasVoted, setHasVoted] = useState(false)
+    const [voteCount, setVoteCount] = useState(article.votes)
 
     useEffect(() => {
         getArticleById(article_id)
@@ -27,16 +28,20 @@ export const Article = () => {
 
     const handleVote = (article_id) => {
       if (!hasVoted) {
+        setVoteCount((currCount) => currCount + 1)
         patchArticle(article_id, true)
-        setArticle((currArticle) => {
-          return {...currArticle, votes: article.votes + 1}
+        .catch((err) => {
+          setVoteCount((currCount) => currCount - 1)
+          setErr('Something went wrong, please try again.')
         })
         setHasVoted(true)
       }
       if (hasVoted) {
+        setVoteCount((currCount) => currCount - 1)
         patchArticle(article_id, false)
-        setArticle((currArticle) => {
-          return {...currArticle, votes: article.votes - 1}
+        .catch((err) => {
+          setVoteCount((currCount) => currCount + 1)
+          setErr('Something went wrong, please try again.')
         })
         setHasVoted(false)
       }
@@ -49,8 +54,9 @@ export const Article = () => {
         <div className="article-info">
             <Link to={`/articles/authors/${article.author}`}>Author: {article.author}</Link>
             <Link to={`/articles/topics/${article.topic}`}>Topic: {article.topic}</Link>
-            <p>Votes: {article.votes}</p>
-            <button onClick={()=> handleVote(article.article_id)}>Up Vote</button>
+            <p>Votes: {voteCount}</p>
+            <button onClick={()=> handleVote(article.article_id)}>{hasVoted? Remove : Add} Vote</button>
+            {err ? <p>{err}</p> : null}
         </div>
         
         <img className="article-img" src={article.article_img_url}></img>
