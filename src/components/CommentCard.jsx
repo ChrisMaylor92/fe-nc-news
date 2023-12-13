@@ -1,36 +1,27 @@
 import { patchComment } from "../API"
 import { useState } from "react"
 
-export const CommentCard =({comment, setComments}) => {
+export const CommentCard =({comment}) => {
     const [hasVoted, setHasVoted] = useState(false)
     const [voteCount, setVoteCount] = useState(comment.votes)
+    const [err, setErr] = useState(null)
 
-    const handleVote = (comment_id) => {
+    const handleVote = () => {
         if (!hasVoted) {
             setVoteCount((currCount) => currCount + 1)
             patchComment(comment.comment_id, true)
-            setComments((currComments) => {
-                const updatedComments = currComments.map((comment) => {
-                    if(comment.comment_id === comment_id){
-                        return {...comment, votes: comment.votes + 1}
-                    }
-                    return comment
-                })
-                return updatedComments
+            .catch((err) => {
+                setVoteCount((currCount) => currCount - 1)
+                setErr('Something went wrong, please try again.')
             })
             setHasVoted(true)
         }
         if(hasVoted) {
             setVoteCount((currCount) => currCount - 1)
             patchComment(comment.comment_id, false)
-            setComments((currComments) => {
-                const updatedComments = currComments.map((comment) => {
-                    if(comment.comment_id === comment_id){
-                        return {...comment, votes: comment.votes - 1}
-                    }
-                    return comment
-                })
-                return updatedComments
+            .catch((err) => {
+                setVoteCount((currCount) => currCount + 1)
+                setErr('Something went wrong, please try again.')
             })
             setHasVoted(false)
         }
@@ -41,6 +32,7 @@ export const CommentCard =({comment, setComments}) => {
         <p>{comment.body}</p>
         <p>Author: {comment.author}</p>
         <p>Votes: {voteCount}</p>
-        <button onClick={() => handleVote(comment.comment_id)}>Up Vote</button>
+        <button onClick={handleVote}>Up Vote</button>
+        {err ? <p>{err}</p> : null}
     </div>
 }
