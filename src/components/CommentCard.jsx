@@ -32,7 +32,7 @@ export const CommentCard =({comment}) => {
         <p>{comment.body}</p>
         <p>Author: {comment.author}</p>
         <p>Votes: {voteCount}</p>
-        <button onClick={handleVote}>Up Vote</button>
+        <button onClick={handleVote}>{hasVoted? "Remove" : "Add"} Vote</button>
         {err ? <p>{err}</p> : null}
     </div>
 }
