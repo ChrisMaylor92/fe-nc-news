@@ -28,7 +28,7 @@ export const ArticleCard = ({article}) => {
           setHasVoted(false)
         }
     }
-    console.log(article.title)
+   
     return (
         <div>
         <h2>{article.title}</h2>
