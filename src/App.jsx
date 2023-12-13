@@ -22,7 +22,6 @@ function App() {
       <Route path="/articles/topics/:topic" element={<ArticlesByTopic/>} />
       <Route path="/articles/:article_id" element={<Article/>}/>
       <Route path="/articles/post" element={<PostArticle/>}/>
-      <Route path="/articles/:article_id/comments" element={<ArticleComments/>}/>
       <Route path="/articles/:article_id/comments/post" element={<PostComment/>}/>  
     </Routes>
     </div>
