@@ -8,6 +8,7 @@ export const ArticleComments = ({article}) => {
 
     const [comments, setComments] = useState([])
     const [loading, setLoading] = useState(true);
+    const [hasDeleted, setHasDeleted] = useState(false)
 
     useEffect(() => {
         getCommentsByArticleId(article.article_id)
@@ -15,7 +16,7 @@ export const ArticleComments = ({article}) => {
             setComments(result)
             setLoading(false)
         })
-    }, [])
+    }, [hasDeleted])
 
     if (loading) {
         return <div>Loading!</div>;
@@ -29,7 +30,7 @@ export const ArticleComments = ({article}) => {
         <PostComment setComments={setComments} article_id={article.article_id}/>
         {comments.map((comment) => {
             return <div key={comment.comment_id}>
-                <CommentCard comment={comment} setComments={setComments}/>
+                <CommentCard comment={comment} setHasDeleted={setHasDeleted} setComments={setComments}/>
             </div>
         })}
         </Collapsible>

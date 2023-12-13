@@ -1,5 +1,7 @@
 import axios from "axios";
 
+
+
 const api = axios.create({
     baseURL: "https://chriss-new-app.onrender.com",
   });
@@ -36,8 +38,8 @@ export const getAllArticlesPagnated = (pageNumber) => {
     })
 }
 
-export const postCommentAPI = (newCommentText, article_id) => {
-    const newComment = {username:'tickle122', body: newCommentText}
+export const postCommentAPI = (newCommentText, article_id, user) => {
+    const newComment = {username: user, body: newCommentText}
     return api.post(`/api/articles/${article_id}/comments`, newComment)
     .then(({data}) => {
         return data
@@ -56,18 +58,21 @@ export const patchArticle = (article_id, num) => {
 
  
 
-export const patchComment = (comment_id, up) => {
-    if(up){
-        return api.patch(`/api/comments/${comment_id}`, {inc_votes: 1})
-        .then ((response) => {
-            return response.data.comment
-        })
-    }
-    if(!up){
-        return api.patch(`/api/comments/${comment_id}`, {inc_votes: -1})
-        .then ((response) => {
-            return response.data.comment
-        })
-    }
+export const patchComment = (comment_id, num) => {
+    return api.patch(`/api/comments/${comment_id}`, {inc_votes: num})
+    .then ((response) => {
+        return response.data.comment
+    })
+}
     
+
+export const getUsers = () => {
+    return api.get(`/api/users`)
+    .then((response) => {
+        return response.data.users
+    })
+}
+
+export const deleteComment = (comment_id) => {
+    return api.delete(`/api/comments/${comment_id}`)
 }

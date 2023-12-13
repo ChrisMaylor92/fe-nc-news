@@ -1,27 +1,30 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { postCommentAPI } from "../API";
+import { useContext } from 'react';
+import { UserContext } from '../contexts/UserContext';
 
 export const PostComment = ({setComments, article_id}) => {
-
+    const { user } = useContext(UserContext)
     const [newComment, setNewComment] = useState("")
 
     const handleSubmit =((event) => {
         event.preventDefault()
 
-        postCommentAPI(newComment, article_id).then((result) => {
-            console.log(result, 'ressuuulltttt<<<<<')
+        postCommentAPI(newComment, article_id, user).then((result) => {
             setComments((currComments) => {
                 return [result.newComment, ...currComments]
             })
             setNewComment('')
         })
     })
-    
+    if (user ==="Nobody") {
+        return <h2>Please log in to add a comment</h2>
+    }
     return (
         <form onSubmit={handleSubmit}>
             <label htmlFor="newComment" >Add Comment</label>
-            <textarea id="" value={newComment} onChange={(event) => setNewComment(event.target.value)}></textarea>
+            <textarea id="newComment" value={newComment} onChange={(event) => setNewComment(event.target.value)}></textarea>
             <button type="submit">Add</button>
         </form>
     )
