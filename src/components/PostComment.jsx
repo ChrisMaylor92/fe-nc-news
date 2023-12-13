@@ -8,7 +8,6 @@ export const PostComment = ({setComments, article_id}) => {
 
     const handleSubmit =((event) => {
         event.preventDefault()
-        console.log(newComment)
 
         postCommentAPI(newComment, article_id).then((result) => {
             console.log(result, 'ressuuulltttt<<<<<')

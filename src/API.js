@@ -36,19 +36,25 @@ export const getAllArticlesPagnated = (pageNumber) => {
     })
 }
 
-
 export const postCommentAPI = (newCommentText, article_id) => {
-    console.log(article_id, ',,,')
     const newComment = {username:'tickle122', body: newCommentText}
     return api.post(`/api/articles/${article_id}/comments`, newComment)
     .then(({data}) => {
         return data
     })
     .catch((err) => {
-        console.log(err, 'err')
     })
 }
 
+
+export const patchArticle = (article_id, num) => {
+    return api.patch(`/api/articles/${article_id}`, {inc_votes: num})
+    .then((response) => {
+        return response.article
+    })
+}
+
+ 
 
 export const patchComment = (comment_id, up) => {
     if(up){
