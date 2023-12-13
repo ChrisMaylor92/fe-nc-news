@@ -12,10 +12,10 @@ export const PostComment = ({setComments, article_id}) => {
 
         postCommentAPI(newComment, article_id).then((result) => {
             console.log(result, 'ressuuulltttt<<<<<')
-            setNewComment('')
             setComments((currComments) => {
-                return [result, ...currComments]
+                return [result.newComment, ...currComments]
             })
+            setNewComment('')
         })
     })
     
@@ -23,7 +23,7 @@ export const PostComment = ({setComments, article_id}) => {
         <form onSubmit={handleSubmit}>
             <label htmlFor="newComment" >Add Comment</label>
             <textarea id="" value={newComment} onChange={(event) => setNewComment(event.target.value)}></textarea>
-            <button>Add</button>
+            <button type="submit">Add</button>
         </form>
     )
 }

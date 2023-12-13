@@ -37,18 +37,19 @@ export const getAllArticlesPagnated = (pageNumber) => {
 }
 
 
-export const postCommentAPI = (newCommentText) => {
-    console.log(typeof newCommentText, ',,,')
-    const newComment = {username:'butter_bridge', body: newCommentText}
-    return api.post(`/api/articles/12/comments`, newComment)
-    .then((result) => {
-        console.log(result, 'dataaaaaaaaa')
+export const postCommentAPI = (newCommentText, article_id) => {
+    console.log(article_id, ',,,')
+    const newComment = {username:'tickle122', body: newCommentText}
+    return api.post(`/api/articles/${article_id}/comments`, newComment)
+    .then(({data}) => {
         return data
     })
     .catch((err) => {
         console.log(err, 'err')
     })
 }
+
+
 export const patchComment = (comment_id, up) => {
     if(up){
         return api.patch(`/api/comments/${comment_id}`, {inc_votes: 1})
