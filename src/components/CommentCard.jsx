@@ -9,7 +9,9 @@ export const CommentCard =({comment}) => {
     const handleVote = () => {
         if (!hasVoted) {
             setVoteCount((currCount) => currCount + 1)
-            patchComment(comment.comment_id, true)
+            patchComment(comment.comment_id, true).then(() => {
+                setErr(null)
+            })
             .catch((err) => {
                 setVoteCount((currCount) => currCount - 1)
                 setErr('Something went wrong, please try again.')
@@ -18,7 +20,9 @@ export const CommentCard =({comment}) => {
         }
         if(hasVoted) {
             setVoteCount((currCount) => currCount - 1)
-            patchComment(comment.comment_id, false)
+            patchComment(comment.comment_id, false).then(() => {
+                setErr(null)
+            })
             .catch((err) => {
                 setVoteCount((currCount) => currCount + 1)
                 setErr('Something went wrong, please try again.')
