@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getAllArticlesFiltered, getTopics } from "../API";
 import { Collapsible } from "./Collapsible";
+import { SortBy } from "./SortBy";
 
 
 
@@ -45,6 +46,7 @@ export const ArticlesByTopic = () => {
             
         </ul>
     </Collapsible>
+    <SortBy setArticles={setArticles}/>
     <Link to={`/articles/post`}>Post New Article</Link>
     <ul>
         {articles.map((article) => {

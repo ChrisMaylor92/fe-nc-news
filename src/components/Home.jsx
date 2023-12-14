@@ -3,15 +3,17 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAllArticles, getAllArticlesPagnated, getTopics } from "../API";
 import { Collapsible } from "./Collapsible";
+import { SortBy } from "./SortBy";
 
 
 
 export const Home = () => {
-    const [articles, setArticles] = useState([])
-    const [allArticles, setAllArticles] = useState([])
     const [loading, setLoading] = useState(true);
-    const [pageNumber ,setPageNumber] = useState(1)
+    const [articles, setArticles] = useState([])
     const [topics, setTopics] = useState([])
+    // const [allArticles, setAllArticles] = useState([])
+    // const [pageNumber ,setPageNumber] = useState(1)
+    
 
 
     useEffect(() =>{
@@ -43,7 +45,8 @@ export const Home = () => {
     // const remainder = allArticles.length % 5
     // const listNoRemainder = allArticles.length - remainder
     // const fullPages = listNoRemainder / 5
-
+    
+    
     return <div className="home">
     <h2>Articles</h2>
     <p>Filter by topics:</p>
@@ -57,6 +60,7 @@ export const Home = () => {
             
         </ul>
     </Collapsible>
+    <SortBy setArticles={setArticles}/>
     <Link to={`/articles/post`}>Post New Article</Link>
     <ul>
         {articles.map((article) => {
@@ -86,31 +90,26 @@ export const Home = () => {
 }
 
 
-<form onSubmit={handleSubmit} id="sortbyDropDown">
-        <div>
-          <label htmlFor="sort-by">Sort by...</label>
-          <div>
-            <select id="sort-by" name="sort-by">
-              <option disabled>Sort by...</option>
-              {categories.map((category) => {
-                return (
-                  <option
-                    key={category.category_name}
-                    value={category.category_name}
-                  >
-                    {category.category_name}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-        </div>
-        <div id="button-container">
-          <button id="submitButton" type="submit">
-            Submit
-          </button>
-        </div>
-      </form>
+
+
+// import { useSearchParams } from "react-router-dom";
+
+//   let [searchParams, setSearchParams] = useSearchParams();
+
+//   function handleSubmit(event) {
+//     event.preventDefault();
+//     // The serialize function here would be responsible for
+//     // creating an object of { key: value } pairs from the
+//     // fields in the form that make up the query.
+//     let params = serializeFormQuery(event.target);
+//     setSearchParams(params);
+//   }
+
+//   return (
+//     <div>
+//       <form onSubmit={handleSubmit}>{/* ... */}</form>
+//     </div>
+//   );
 
 
 
