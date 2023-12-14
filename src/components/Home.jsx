@@ -17,17 +17,10 @@ export const Home = () => {
     useEffect(() =>{
         getAllArticles()
         .then((response) => {
-            setAllArticles(response)
+            setArticles(response)
+            setLoading(false)
         })
     }, [])
-
-    useEffect(() =>{
-        getAllArticlesPagnated(pageNumber)
-        .then((response) => {
-            setArticles(response)
-            setLoading(false);
-        })
-    }, [pageNumber])
 
     useEffect(() =>{
         getTopics()
@@ -39,17 +32,17 @@ export const Home = () => {
     if(loading) {
         return <div>Loading!</div>
     }
-    const nextPage = () => {
-        setPageNumber( pageNumber+1 )
-    }
-    const previousPage = () => {
-        setPageNumber( pageNumber-1 )
-    }
+    // const nextPage = () => {
+    //     setPageNumber( pageNumber+1 )
+    // }
+    // const previousPage = () => {
+    //     setPageNumber( pageNumber-1 )
+    // }
 
 
-    const remainder = allArticles.length % 5
-    const listNoRemainder = allArticles.length - remainder
-    const fullPages = listNoRemainder / 5
+    // const remainder = allArticles.length % 5
+    // const listNoRemainder = allArticles.length - remainder
+    // const fullPages = listNoRemainder / 5
 
     return <div className="home">
     <h2>Articles</h2>
@@ -83,10 +76,10 @@ export const Home = () => {
             </li>
         })}
     </ul>
-    <div>
+    {/* <div>
         {allArticles.length <= 5 || pageNumber === 1 ? null : <button onClick={previousPage}>Previous Page</button>}
         {allArticles.length <= 5 || remainder === 0 && pageNumber === fullPages || remainder > 0 && pageNumber === fullPages + 1 ? null : <button onClick={nextPage}>Next Page</button>}
-    </div>
+    </div> */}
     
     </div>
 
