@@ -3,7 +3,7 @@ import { useState } from "react"
 import { useContext } from 'react';
 import { UserContext } from '../contexts/UserContext';
 
-export const CommentCard =({comment, setHasDeleted, setComments}) => {
+export const CommentCard =({comment, setComments}) => {
     const { user } = useContext(UserContext)
     const [hasVoted, setHasVoted] = useState(false)
     const [voteCount, setVoteCount] = useState(comment.votes)
