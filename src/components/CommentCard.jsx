@@ -8,6 +8,7 @@ export const CommentCard =({comment, setComments}) => {
     const [hasVoted, setHasVoted] = useState(false)
     const [voteCount, setVoteCount] = useState(comment.votes)
     const [err, setErr] = useState(null)
+    const [isDeleting, setIsDeleting] = useState(false)
 
     const handleVote = () => {
         if (!hasVoted) {
@@ -37,18 +38,17 @@ export const CommentCard =({comment, setComments}) => {
 
     const handleDelete = () => {
 
-        setComments((currComments) => {
-            const copyComments = [...currComments]
-            return copyComments.filter((element) => element.comment_id !== comment.comment_id)
-        })
+        setIsDeleting(true)
         deleteComment(comment.comment_id)
         .then(() => {
             setErr(null)
+            setComments((currComments) => {
+                const copyComments = [...currComments]
+                return copyComments.filter((element) => element.comment_id !== comment.comment_id)
+            })
+            setIsDeleting(false)
         })
         .catch((err) => {
-            setComments((currComments) => {
-                return [comment, ...currComments]
-            })
             setErr('Something went wrong, please try again.')
         })
     }
@@ -59,6 +59,7 @@ export const CommentCard =({comment, setComments}) => {
         <p>Author: {comment.author}</p>
         <p>Votes: {voteCount}</p>
         <button onClick={handleDelete}>Delete Comment</button>
+        {isDeleting ? <p>Currently Deleting</p> : null}
         {err ? <p>{err}</p> : null}
     </div>
     }
