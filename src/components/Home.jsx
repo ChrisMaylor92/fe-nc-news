@@ -42,8 +42,6 @@ export const Home = () => {
     const listNoRemainder = allArticles.length - remainder
     const fullPages = listNoRemainder / 5
 
-
-
     return <div className="home">
     <h2>Articles</h2>
     <h3>Sort By Topics/Authors</h3>
@@ -54,16 +52,19 @@ export const Home = () => {
                 <div className="article-li-title-info">
                     <Link  to={`/articles/${article.article_id}`}>{article.title}</Link>
                     <div className="article-list-item-info">
-                        <Link to={`/articles/topics/${article.topic}`}>Topic: {article.topic}</Link>
-                        <Link to={`/articles/${article.article_id}/comments`}>Comments {article.comment_count}</Link>
-                        <Link to={`/articles/authors/${article.author}`}>Author: {article.author}</Link>
+                        <p>Author: <Link to={`/articles/authors/${article.author}`}>{article.author}</Link></p>
+                        <p>Topic: <Link to={`/articles/topics/${article.topic}`}>{article.topic}</Link></p>
+                        <p>{article.comment_count} Comments </p>
+                
+                        
+                        
                     </div>
                 </div>
                 <img className="article-list-img"src={article.article_img_url}></img>
             </li>
         })}
     </ul>
-    <div className="bottom">
+    <div>
         {allArticles.length <= 5 || pageNumber === 1 ? null : <button onClick={previousPage}>Previous Page</button>}
         {allArticles.length <= 5 || remainder === 0 && pageNumber === fullPages || remainder > 0 && pageNumber === fullPages + 1 ? null : <button onClick={nextPage}>Next Page</button>}
     </div>

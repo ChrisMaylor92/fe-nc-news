@@ -25,6 +25,7 @@ export const Article = () => {
     if (loading) {
         return <div>Loading!</div>;
     }
+  
     return <ArticleCard article={article}/>
 
 }
