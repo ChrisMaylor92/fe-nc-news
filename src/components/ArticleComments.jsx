@@ -26,7 +26,7 @@ export const ArticleComments = ({article}) => {
     }
     return <div>
         <h2>Comments: {comments.length}</h2>
-        <Collapsible>
+        <Collapsible name="Comments">
         <PostComment setComments={setComments} article_id={article.article_id}/>
         {comments.map((comment) => {
             return <div key={comment.comment_id}>
