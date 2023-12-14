@@ -86,6 +86,32 @@ export const Home = () => {
 }
 
 
+<form onSubmit={handleSubmit} id="sortbyDropDown">
+        <div>
+          <label htmlFor="sort-by">Sort by...</label>
+          <div>
+            <select id="sort-by" name="sort-by">
+              <option disabled>Sort by...</option>
+              {categories.map((category) => {
+                return (
+                  <option
+                    key={category.category_name}
+                    value={category.category_name}
+                  >
+                    {category.category_name}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        </div>
+        <div id="button-container">
+          <button id="submitButton" type="submit">
+            Submit
+          </button>
+        </div>
+      </form>
+
 
 
 
