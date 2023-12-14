@@ -8,6 +8,7 @@ export const ArticleComments = ({article}) => {
 
     const [comments, setComments] = useState([])
     const [loading, setLoading] = useState(true);
+    
 
     useEffect(() => {
         getCommentsByArticleId(article.article_id)
