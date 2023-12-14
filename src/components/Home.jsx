@@ -1,7 +1,8 @@
 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getAllArticles, getAllArticlesPagnated } from "../API";
+import { getAllArticles, getAllArticlesPagnated, getTopics } from "../API";
+import { Collapsible } from "./Collapsible";
 
 
 
@@ -10,41 +11,52 @@ export const Home = () => {
     const [allArticles, setAllArticles] = useState([])
     const [loading, setLoading] = useState(true);
     const [pageNumber ,setPageNumber] = useState(1)
+    const [topics, setTopics] = useState([])
 
 
     useEffect(() =>{
         getAllArticles()
         .then((response) => {
-            setAllArticles(response)
+            setArticles(response)
+            setLoading(false)
         })
     }, [])
 
     useEffect(() =>{
-        getAllArticlesPagnated(pageNumber)
+        getTopics()
         .then((response) => {
-            setArticles(response)
-            setLoading(false);
+            setTopics(response)
         })
-    }, [pageNumber])
+    }, [])
 
     if(loading) {
         return <div>Loading!</div>
     }
-    const nextPage = () => {
-        setPageNumber( pageNumber+1 )
-    }
-    const previousPage = () => {
-        setPageNumber( pageNumber-1 )
-    }
+    // const nextPage = () => {
+    //     setPageNumber( pageNumber+1 )
+    // }
+    // const previousPage = () => {
+    //     setPageNumber( pageNumber-1 )
+    // }
 
 
-    const remainder = allArticles.length % 5
-    const listNoRemainder = allArticles.length - remainder
-    const fullPages = listNoRemainder / 5
+    // const remainder = allArticles.length % 5
+    // const listNoRemainder = allArticles.length - remainder
+    // const fullPages = listNoRemainder / 5
 
     return <div className="home">
     <h2>Articles</h2>
-    <h3>Sort By Topics/Authors</h3>
+    <p>Filter by topics:</p>
+    <Collapsible name="Topics">
+        <ul>
+            {topics.map((topic) => {
+                return <li key={topic.slug}>
+                    <Link  to={`/articles/topics/${topic.slug}`}>{topic.slug}</Link>
+                </li>
+            })}
+            
+        </ul>
+    </Collapsible>
     <Link to={`/articles/post`}>Post New Article</Link>
     <ul>
         {articles.map((article) => {
@@ -64,10 +76,11 @@ export const Home = () => {
             </li>
         })}
     </ul>
-    <div>
+    {/* <div>
         {allArticles.length <= 5 || pageNumber === 1 ? null : <button onClick={previousPage}>Previous Page</button>}
         {allArticles.length <= 5 || remainder === 0 && pageNumber === fullPages || remainder > 0 && pageNumber === fullPages + 1 ? null : <button onClick={nextPage}>Next Page</button>}
-    </div>
+    </div> */}
+    
     </div>
 
 }
