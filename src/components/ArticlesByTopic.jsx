@@ -4,6 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import { getAllArticlesFiltered, getTopics } from "../API";
 import { Collapsible } from "./Collapsible";
 import { SortBy } from "./SortBy";
+import { Error } from "./Error";
 
 
 
@@ -12,6 +13,7 @@ export const ArticlesByTopic = () => {
     const [articles, setArticles] = useState([])
     const [loading, setLoading] = useState(true);
     const [topics, setTopics] = useState([])
+    const [apiError, setApiError] = useState(null)
 
     useEffect(() =>{
         getAllArticlesFiltered(topic)
@@ -19,18 +21,26 @@ export const ArticlesByTopic = () => {
             setArticles(response)
             setLoading(false)
         })
-    }, [topic])
+        .catch((err)=> {
+            setApiError(err.response)
+            setLoading(false)
+            setArticles([])
+        })
+    }, [])
+
     useEffect(() =>{
         getTopics()
         .then((response) => {
             setTopics(response)
         })
     }, [])
-  
+
     if(loading) {
         return <div>Loading!</div>
+    } else 
+    if (apiError) {
+        return <Error message={`${apiError.status} ${apiError.data.msg}`}/>
     }
- 
 
     return <div className="home">
     <h2>Articles</h2>
@@ -43,7 +53,6 @@ export const ArticlesByTopic = () => {
                     <Link  to={`/articles/topics/${menuTopic.slug}`}>{menuTopic.slug}</Link>
                 </li>
             })}
-            
         </ul>
     </Collapsible>
     <SortBy setArticles={setArticles}/>
