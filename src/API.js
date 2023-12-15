@@ -4,14 +4,35 @@ import axios from "axios";
 
 const api = axios.create({
     baseURL: "https://chriss-new-app.onrender.com",
-  });
+});
 
+export const getAllArticles = () => {
+    return api.get(`/api/articles`)
+    .then((response) => {
+        return response.data.articles
+    })
+}
+
+export const getAllArticlesFiltered = (topic) => {
+    return api.get(`/api/articles?topic=${topic}`)
+    .then((response) => {
+        return response.data.articles
+    });
+}
+
+export const getAllArticlesPagnated = (pageNumber) => {
+    return api.get(`/api/articles?limit=5&p=${pageNumber}`)
+    .then((response) => {
+        return response.data.articles
+    })
+}
 
 export const getArticleById = (article_id) => {
     return api.get(`/api/articles/${article_id}`)
     .then((response) => {
         return response.data.article
-    });
+    })
+    
 }
 
 
@@ -22,21 +43,6 @@ export const getCommentsByArticleId = (article_id) => {
     });
 }
 
-
-export const getAllArticles = () => {
-    return api.get(`/api/articles`)
-    .then((response) => {
-        return response.data.articles
-    })
-}
-
-
-export const getAllArticlesPagnated = (pageNumber) => {
-    return api.get(`/api/articles?limit=5&p=${pageNumber}`)
-    .then((response) => {
-        return response.data.articles
-    })
-}
 
 export const postCommentAPI = (newCommentText, article_id, user) => {
     const newComment = {username: user, body: newCommentText}
@@ -81,11 +87,5 @@ export const getTopics = () => {
     return api.get(`/api/topics`)
     .then((response) => {
         return response.data.topics
-    });
-}
-export const getAllArticlesFiltered = (topic) => {
-    return api.get(`/api/articles?topic=${topic}`)
-    .then((response) => {
-        return response.data.articles
     });
 }
