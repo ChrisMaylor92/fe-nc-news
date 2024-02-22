@@ -55,9 +55,9 @@ export const Home = () => {
     
     return <div >
     <Title/>
-    <h1 className='text-5xl font-bold text-red-500'>Articles</h1>
+    <h1 className='text-5xl font-bold text-red-500 pb-8'>Articles</h1>
     <h3>Search options:</h3>
-    <div className="grid grid-cols-10 gap-5">
+    <div className="grid grid-cols-10 gap-5 pb-8">
         
     
         
@@ -76,8 +76,10 @@ export const Home = () => {
             <SortBy className="col-span-3" setArticles={setArticles}/> 
     </div>
     
+    <div className="pb-8">
+        <Link className="btn" to={`/articles/post`}>Post New Article</Link>
+    </div>
     
-    <Link className="btn" to={`/articles/post`}>Post New Article</Link>
     <div className="grid grid-cols-4 gap-5">
         {articles.map((article) => {
             return <HomeArticleCard key={article.article_id}article={article}/>
