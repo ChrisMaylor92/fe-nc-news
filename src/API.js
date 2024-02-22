@@ -21,7 +21,7 @@ export const getAllArticlesFiltered = (topic) => {
 }
 
 export const getAllArticlesPagnated = (pageNumber) => {
-    return api.get(`/api/articles?limit=5&p=${pageNumber}`)
+    return api.get(`/api/articles?limit=8&p=${pageNumber}`)
     .then((response) => {
         return response.data.articles
     })

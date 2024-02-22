@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import './App.css'
+
 import { Article } from './components/Article';
 import { Error } from './components/Error'
 import { Header } from './components/Header'
@@ -15,8 +15,9 @@ function App() {
 
 
   return (
-    <div>
+    <div className="bg-black">
       <UserProvider>
+        <div className="container mx-auto min-h-screen" >
         <Header/>
         <Routes>
           <Route path="/" element={<Home/>} />
@@ -28,6 +29,7 @@ function App() {
           <Route path="/articles/:article_id/comments/post" element={<PostComment/>}/>  
           <Route path="/*" element={<Error message="Route not found."/>} />
         </Routes>
+        </div>
       </UserProvider>
     </div>
   )

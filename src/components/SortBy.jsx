@@ -33,47 +33,45 @@ export const SortBy = ({setArticles}) => {
         setOrder(event.target.value)
     }
 
-    return <form onSubmit={handleSubmit} id="sortbyDropDown">
+    return <form className="grid grid-cols-2"onSubmit={handleSubmit} id="sortbyDropDown">
     <div>
       <label htmlFor="sort-by">
-      <div>
-        <select id="sort-by" name="sort-by" value={value} onChange={handleSortChange}>
-          <option>Sort by...</option>
-          {sortby.map((listItem) => {
-            return (
-              <option
-                key={listItem.label}
-                value={listItem.value}
-              >
-                {listItem.label}
-              </option>
-            );
-          })}
-        </select>
-    </div>
-    </label>
-    <label>
         <div>
-        <select id="order" name="order" value={value} onChange={handleOrderChange}>
-          <option>Order...</option>
-          {orderby.map((listItem) => {
-            return (
-              <option
-                key={listItem.label}
-                value={listItem.value}
-              >
-                {listItem.label}
-              </option>
-            );
-          })}
-        </select>
+          <select className="w-24" id="sort-by" name="sort-by" value={value} onChange={handleSortChange}>
+            <option>Sort by...</option>
+            {sortby.map((listItem) => {
+              return (
+                <option
+                  key={listItem.label}
+                  value={listItem.value}
+                >
+                  {listItem.label}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+      </label>
+      <label>
+          <select className="w-24"id="order" name="order" value={value} onChange={handleOrderChange}>
+            <option>Order...</option>
+            {orderby.map((listItem) => {
+              return (
+                <option
+                  key={listItem.label}
+                  value={listItem.value}
+                >
+                  {listItem.label}
+                </option>
+              );
+            })}
+          </select>
         
-      </div>
       </label>
       
     </div>
     <div id="button-container">
-      <button id="submitButton" type="submit">
+      <button className="btn ml-20" id="submitButton" type="submit">
        Go
       </button>
     </div>
